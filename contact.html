@@ -17,6 +17,7 @@
              var name = jQuery("#name").val();
              var email = jQuery("#mail").val();
              var message = jQuery("#msg").val();
+             var body = "From "+name+"<br><br> Email:"+email+"<br><br>Message: "+message;
              var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
              if( name =="" || email == "" || message == "" ){
 
@@ -24,32 +25,58 @@
                   jQuery("#notification").text("Invalid Email");
                   jQuery("#notification").fadeOut(5000); 
              }else{
-                 jQuery.ajax({
-                        type: 'POST',    
-                        url:'http://dev.tagbin.in/phpHandler/mailer/mailer/tagbinContactUsSendEmail.php',
-                        data:'name='+ name+'&email='+ email+'&message='+message,
-                        success: function(msg){
-                            console.log(msg);
-                            if( msg =="_NOT_SENT" ){
-                                 jQuery("#notification").text(" Some Issue is there man!");
-                                 jQuery("#notification").fadeOut(5000);
-                            }else if( msg == "_EMAIL_SENT"){
+                 var settings = {
+                      "async": true,
+                      "crossDomain": true,
+                      "url": "https://ocy0sibbhb.execute-api.us-east-1.amazonaws.com/PROD/",
+                      "method": "POST",
+                      "headers": {
+                        "accept": "application/json",
+                        "content-type": "application/json",
+                        "x-api-key": "g3c8nWZGl160YtK6Y5CqS8DpogTm1wMm4PNHDE4u"
+                      },
+                      "processData": false,
+                      "data": "{\"sender\": \"Tagbin Contact Us Page <important@tagbin.in>\",\"recipient\": \"girish@tagbin.in,communications@tagbin.in\",\"subject\":\"Tagbin: Cobtact Us page\",\"body_text\": \""+body+"\",\"body_html\": \""+body+"\"}"
+                    }
 
-                                 //alert("Sent Successfully");
+                    jQuery.ajax(settings).done(function (response) {
+                     console.log(response);
+                     jQuery("#notification").text("We have received you query!");
+                     jQuery("#notification").fadeOut(5000);
+                     jQuery("#name").val("");
+                     jQuery("#mail").val("");
+                     jQuery("#subject").val("");
+                     jQuery("#msg").val("");
+                    });
+                 
+                 
+                 
+//                  jQuery.ajax({
+//                         type: 'POST',    
+//                         url:'http://dev.tagbin.in/phpHandler/mailer/mailer/tagbinContactUsSendEmail.php',
+//                         data:'name='+ name+'&email='+ email+'&message='+message,
+//                         success: function(msg){
+//                             console.log(msg);
+//                             if( msg =="_NOT_SENT" ){
+//                                  jQuery("#notification").text(" Some Issue is there man!");
+//                                  jQuery("#notification").fadeOut(5000);
+//                             }else if( msg == "_EMAIL_SENT"){
 
-                                 jQuery("#notification").text("We have received you query!");
-                                 jQuery("#notification").fadeOut(5000);
-                                 jQuery("#name").val("");
-                                 jQuery("#mail").val("");
-                                 jQuery("#subject").val("");
-                                 jQuery("#msg").val("");
-                            }else if( msg == '_INVALID_EMAIL'){
-                                 jQuery("#notification").text(" Invalid email.");
-                                 jQuery("#notification").fadeOut(5000);
-                            }
+//                                  //alert("Sent Successfully");
+
+//                                  jQuery("#notification").text("We have received you query!");
+//                                  jQuery("#notification").fadeOut(5000);
+//                                  jQuery("#name").val("");
+//                                  jQuery("#mail").val("");
+//                                  jQuery("#subject").val("");
+//                                  jQuery("#msg").val("");
+//                             }else if( msg == '_INVALID_EMAIL'){
+//                                  jQuery("#notification").text(" Invalid email.");
+//                                  jQuery("#notification").fadeOut(5000);
+//                             }
                        
-                        }
-                 });
+//                         }
+//                  });
                      
              }
 
