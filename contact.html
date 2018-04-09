@@ -16,8 +16,9 @@
       jQuery("#contact-us-button").click(function(){
              var name = jQuery("#name").val();
              var email = jQuery("#mail").val();
+             var subject = jQuery("#subject").val();
              var message = jQuery("#msg").val();
-             var body = "From "+name+"<br><br> Email:"+email+"<br><br>Message: "+message;
+             var body = "From "+name+"<br><br> Email:"+email+"<br><br>Subject: "+subject+"<br><br>Message: "+message;
              var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
              if( name =="" || email == "" || message == "" ){
 
@@ -36,7 +37,7 @@
                         "x-api-key": "g3c8nWZGl160YtK6Y5CqS8DpogTm1wMm4PNHDE4u"
                       },
                       "processData": false,
-                      "data": "{\"sender\": \"Tagbin Contact Us Page <important@tagbin.in>\",\"recipient\": \"girish@tagbin.in,communications@tagbin.in\",\"subject\":\"Tagbin: Cobtact Us page\",\"body_text\": \""+body+"\",\"body_html\": \""+body+"\"}"
+                      "data": "{\"sender\": \"Tagbin Contact Us Page <noreply@tagbin.in>\",\"recipient\": \"girish@tagbin.in,communications@tagbin.in\",\"subject\":\"Tagbin: Cobtact Us page\",\"body_text\": \""+body+"\",\"body_html\": \""+body+"\"}"
                     }
 
                     jQuery.ajax(settings).done(function (response) {
