@@ -116,18 +116,11 @@
         }]
         for (var i = 0; i < settings.length; i++) {
             $.ajax(settings[i]).done(function(response) {
-                console.log(response);
                 $(".contact-no").val("");
-
             });
         }
         alert("Our Sales rep is dialing your number, please wait!");
-
-
-
-        $.ajax(settings).done(function(response) {
-            console.log(response);
-        });
+        $(".call-me").click()
     }
 </script>
 <!-- call me script ends here -->
