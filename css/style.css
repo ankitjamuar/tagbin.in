@@ -6689,7 +6689,7 @@ input.contact-no {
     border: none;
     margin: -9px -4px;
     height: 3.1em;
-    width: 18em;
+    width: 19em!important;
     display: inline-block;
     width: 206px;
     z-index: 99999999999;
@@ -6697,7 +6697,7 @@ input.contact-no {
     z-index: 0;
     position: absolute;
     top: 12px;
-    right: 6px;
+    right: 4px;
     font-size: 11px;
     z-index: 9999;
     background: #eeeeee !important;
