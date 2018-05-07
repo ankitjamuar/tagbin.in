@@ -54,4 +54,80 @@
     </li> -->
     <li id="menu-item-3860" class="menu-item menu-item-type-post_type menu-item-object-page  page_item page-item-3295  menu-item-3860"><a class="YY" href="https://tagbin.in/contact.html">CONTACT</a>
     </li>
+    <li id="" class="">
+        <div class="closeable close">
+            <h1 class="call-me">Call Me</h1>
+            <input type="text" class="contact-no" placeholder="+91 8888888888  & Hit Enter" maxlength="13">
+        </div>
+    </li>
 </ul>
+
+
+
+<!-- call me script start here -->
+<script>
+    $(function() {
+        $(".contact-no").hide();
+        $('.call-me').on('click', function(e) {
+
+            $('.closeable').toggleClass('close');
+            setTimeout(function() {
+                $(".contact-no").toggle();
+            }, 100);
+        })
+    });
+
+
+    // Register event for enter press
+    $(".contact-no").on('keyup', function(e) {
+        if (e.keyCode == 13) {
+            // Do something
+            if ($(".contact-no").val().length >= 10) {
+                $(".contact-no").val("");
+                sendToDrift($(".contact-no").val());
+            }
+        }
+    });
+
+    function sendToDrift(number) {
+        var body = "From page: " + document.location.href + "  Please call me on " + number;
+        var settings = [{
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ulu97w6m4a.execute-api.us-east-1.amazonaws.com/PRODUCTION",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json"
+                    // "cache-control": "no-cache"
+            },
+            "processData": false,
+            "data": "{\"body\" : \"" + body + "\"}"
+        }, {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://chat.googleapis.com/v1/spaces/AAAAsoREd9o/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=5rIQE18dWcmMbjP-qUCxy1gn2pa9cSKFtqwSRUajsXU%3D",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+                "cache-control": "no-cache"
+            },
+            "processData": false,
+            "data": "{\"text\" : \"" + body + " \"}"
+        }]
+        for (var i = 0; i < settings.length; i++) {
+            $.ajax(settings[i]).done(function(response) {
+                console.log(response);
+                $(".contact-no").val("");
+
+            });
+        }
+        alert("Our Sales rep is dialing your number, please wait!");
+
+
+
+        $.ajax(settings).done(function(response) {
+            console.log(response);
+        });
+    }
+</script>
+<!-- call me script ends here -->
